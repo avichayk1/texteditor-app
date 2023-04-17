@@ -16,7 +16,7 @@ class App extends Component {
     const text = this.state.text;
     const camelCase = this.state.camelCase;
     const language = this.state.language;
-    if (value === '16px') {
+    if (event.target.value === '16px') {
       this.setState({ text: text });
     }
   };
