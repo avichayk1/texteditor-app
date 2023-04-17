@@ -3,18 +3,26 @@ import Keyboard from './Keyboard';
 
 class TextEditor extends Component {
   render() {
-    // const { text } = this.state;
+    const { value, handleKeyPress, language, size, font, color, camelCase } =
+      this.props;
 
     return (
       <div>
-        <input
-          type="text"
-          value={this.props.text}
-        />
+        <div>
+          <h3>Text Editor</h3>
+          <textarea
+            defaultValue={value}
+            style={{ fontSize: `${size}` }}
+          />
+        </div>
+
         <Keyboard
-          // key="Keyboard"
-          // onChange={this.props.handleTextChange}
-          onKeyClick={this.props.onKeyClick}
+          handleKeyPress={handleKeyPress}
+          language={language}
+          size={size}
+          font={font}
+          color={color}
+          camelCase={camelCase}
         />
       </div>
     );
