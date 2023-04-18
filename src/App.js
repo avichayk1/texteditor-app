@@ -8,16 +8,14 @@ class App extends Component {
     language: 'english',
     size: 'medium',
     font: 'Arial',
-    color: 'black',
+    color: 'white',
     camelCase: false,
   };
-  handleOptionClick = (event) => {
-    const key = event.target.id;
+  handleChange = (event) => {
+    console.log(event.target.value);
     const text = this.state.text;
-    const camelCase = this.state.camelCase;
-    const language = this.state.language;
     if (event.target.value === '16px') {
-      this.setState({ text: text });
+      this.setState({ text: text, size: '16px' });
     }
   };
   handleKeyClick = (event) => {
@@ -49,6 +47,7 @@ class App extends Component {
         <TextEditor
           value={this.state.text}
           handleKeyPress={this.handleKeyClick}
+          handleChange={this.handleChange}
           language={this.state.language}
           size={this.state.size}
           font={this.state.font}

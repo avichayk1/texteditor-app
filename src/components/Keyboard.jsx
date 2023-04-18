@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 
 class Keyboard extends Component {
   render() {
-    const { handleKeyPress, language, size, font, color, camelCase } =
-      this.props;
+    const {
+      handleKeyPress,
+      handleChange,
+      language,
+      size,
+      font,
+      color,
+      camelCase,
+    } = this.props;
 
     let row1 = 'qwertyuiop';
     let row2 = 'asdfghjkl';
@@ -76,24 +83,24 @@ class Keyboard extends Component {
             <div>
               <select
                 value={language}
-                onChange={this.props.onLanguageChange}
+                onChange={handleChange}
               >
-                <option value="en">English</option>
-                <option value="he">Hebrew</option>
-                <option value="em">emoji</option>
+                <option value="english">English</option>
+                <option value="hebrew">Hebrew</option>
+                <option value="emoji">emoji</option>
               </select>
 
               <select
                 value={font}
-                onChange={this.props.onFontChange}
+                onChange={handleChange}
               >
                 <option value="Arial">Arial</option>
                 <option value="Times New Roman">Times New Roman</option>
               </select>
 
               <select
-                value={size}
-                onChange={this.props.onFontSizeChange}
+                //value={size}
+                onChange={handleChange}
               >
                 <option value="12px">12</option>
                 <option value="16px">16</option>
