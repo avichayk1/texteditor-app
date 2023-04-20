@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 // import NavBar from './components/navbar';
-import './App.css';
+// import './App.css';
 import TextEditor from './components/textEditor';
 class App extends Component {
   state = {
     text: '',
     language: 'english',
-    size: 'medium',
+    size: '16px',
     font: 'Arial',
-    color: 'white',
+    color: '#000000',
     camelCase: false,
+    stuck: [],
   };
   handleChange = (event) => {
-    console.log(event.target.value);
-    const text = this.state.text;
-    if (event.target.value === '16px') {
-      this.setState({ text: text, size: '16px' });
-    }
+    console.log(event.target.value, event.target.id);
+    const value = event.target.value;
+    const id = event.target.id;
+    this.setState({ ...this.state, [id]: value, stuck: { ...this.state } });
   };
   handleKeyClick = (event) => {
     const key = event.target.id;
@@ -25,19 +25,67 @@ class App extends Component {
     const language = this.state.language;
 
     if (key === 'Enter') {
-      this.setState({ text: text + '\n' });
+      this.setState({
+        ...this.state,
+        text: text + '\r\n',
+        stuck: { ...this.state },
+      });
+      console.log(text);
     } else if (key === 'Backspace') {
-      this.setState({ text: text.slice(0, -1) });
+      if (language !== 'emoji') {
+        this.setState({
+          ...this.state,
+          text: text.slice(0, -1),
+          stuck: { ...this.state },
+        });
+      } else {
+        this.setState({
+          ...this.state,
+          text: text.slice(0, -2),
+          stuck: { ...this.state },
+        });
+      }
     } else if (key === 'Tab') {
-      this.setState({ text: text + '    ' });
+      this.setState({
+        ...this.state,
+        text: text + '    ',
+        stuck: { ...this.state },
+      });
     } else if (key === 'Shift') {
-      this.setState({ camelCase: !camelCase });
+      this.setState({
+        ...this.state,
+        camelCase: !camelCase,
+        stuck: { ...this.state },
+      });
     } else if (key === 'Control') {
-      this.setState({ language: 'english' });
+      this.setState({
+        ...this.state,
+        language: 'english',
+        stuck: { ...this.state },
+      });
     } else if (key === 'Clear') {
-      this.setState({ text: '' });
-    } else if (language === 'english') {
-      this.setState({ text: text + key });
+      this.setState({ ...this.state, text: '', stuck: { ...this.state } });
+    } else if (key === 'Undo') {
+      this.setState(this.state.stuck);
+    } else if (
+      camelCase === false ||
+      camelCase === 'false' ||
+      language !== 'english'
+    ) {
+      console.log(camelCase);
+      this.setState({
+        ...this.state,
+        text: text + key,
+        stuck: { ...this.state },
+      });
+    } else {
+      console.log(camelCase);
+      let upper = key.toUpperCase().toString();
+      this.setState({
+        ...this.state,
+        text: text + upper,
+        stuck: { ...this.state },
+      });
     }
   };
 

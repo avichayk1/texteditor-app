@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 class Keyboard extends Component {
   render() {
     const {
@@ -24,49 +23,88 @@ class Keyboard extends Component {
         row3 = 'זסבהדג';
         break;
       case 'emoji':
-        row1 = '😀😁😂🤣😃😄😅😆😉😊';
-        row2 = '😋😎😍😘😗😙😚😇🙂🙃';
-        row3 = '🤔🤨😐😑😶😏😒🙄😬🤥';
+        row1 = ['😀', '😁', '😂', '🤣', '😃', '😄', '😅', '😆', '😉', '😊'];
+        row2 = ['😋', '😎', '😍', '😘', '😗', '😙', '😚', '😇', '🙂', '🙃'];
+        row3 = ['🤔', '🤨', '😐', '😑', '😶', '😏', '😒', '🙄', '😬', '🤥'];
         break;
       default:
         break;
     }
     return (
-      // keyboard.push(
       <div>
-        <div key="row1">
-          {row1.split('').map((char, index) => (
-            <button
-              key={char}
-              onClick={handleKeyPress}
-              id={char}
-            >
-              {char}
-            </button>
-          ))}
-        </div>
-        <div key="row2">
-          {row2.split('').map((char) => (
-            <button
-              key={char}
-              onClick={handleKeyPress}
-              id={char}
-            >
-              {char}
-            </button>
-          ))}
-        </div>
-        <div key="row3">
-          {row3.split('').map((char) => (
-            <button
-              key={char}
-              onClick={handleKeyPress}
-              id={char}
-            >
-              {char}
-            </button>
-          ))}
-        </div>
+        {language === 'emoji' ? (
+          <>
+            <div key="row1">
+              {row1.map((char, index) => (
+                <button
+                  key={char}
+                  onClick={handleKeyPress}
+                  id={char}
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
+            <div key="row2">
+              {row2.map((char, index) => (
+                <button
+                  key={char}
+                  onClick={handleKeyPress}
+                  id={char}
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
+            <div key="row3">
+              {row3.map((char, index) => (
+                <button
+                  key={char}
+                  onClick={handleKeyPress}
+                  id={char}
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div key="row1">
+              {row1.split('').map((char, index) => (
+                <button
+                  key={char}
+                  onClick={handleKeyPress}
+                  id={char}
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
+            <div key="row2">
+              {row2.split('').map((char) => (
+                <button
+                  key={char}
+                  onClick={handleKeyPress}
+                  id={char}
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
+            <div key="row3">
+              {row3.split('').map((char) => (
+                <button
+                  key={char}
+                  onClick={handleKeyPress}
+                  id={char}
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
         <div key="row4">
           {row4.split(' ').map((char) => (
             <button
@@ -82,8 +120,10 @@ class Keyboard extends Component {
           {
             <div>
               <select
+                id="language"
                 value={language}
                 onChange={handleChange}
+                defaultValue="english"
               >
                 <option value="english">English</option>
                 <option value="hebrew">Hebrew</option>
@@ -91,25 +131,40 @@ class Keyboard extends Component {
               </select>
 
               <select
+                id="font"
                 value={font}
                 onChange={handleChange}
+                defaultValue="Arial"
               >
                 <option value="Arial">Arial</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Garamond">Garamond</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Brush Script MT">Brush Script MT</option>
                 <option value="Times New Roman">Times New Roman</option>
               </select>
-
               <select
-                //value={size}
+                id="size"
+                value={size}
                 onChange={handleChange}
+                defaultValue="16px"
               >
                 <option value="12px">12</option>
                 <option value="16px">16</option>
                 <option value="20px">20</option>
+                <option value="26px">26</option>
+                <option value="32px">32</option>
+                <option value="64px">64</option>
               </select>
 
               <select
+                id="color"
                 value={color}
-                onChange={this.props.onColorChange}
+                defaultValue="#FFFFFF"
+                onChange={handleChange}
               >
                 <option value="#000000">Black</option>
                 <option value="#ff0000">Red</option>
@@ -117,12 +172,14 @@ class Keyboard extends Component {
               </select>
 
               <select
+                id="camelCase"
                 value={camelCase}
-                onChange={this.props.onCaseChange}
+                defaultValue="false"
+                onChange={handleChange}
               >
-                <option value="none">Normal</option>
-                <option value="uppercase">Uppercase</option>
-                <option value="lowercase">Lowercase</option>
+                {/* <option value="none">Normal</option> */}
+                <option value="true">Uppercase</option>
+                <option value="false">Lowercase</option>
               </select>
             </div>
           }
